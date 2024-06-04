@@ -120,7 +120,7 @@ patterns = {
   :patterns => patterns_with_category.sort_by { |pattern| pattern[:patternId] },
 }
 
-File.open("src/main/resources/docs/patterns.json", "w") do |f|
+File.open("docs/patterns.json", "w") do |f|
   f.puts JSON.pretty_generate(patterns)
 end
 
@@ -133,7 +133,7 @@ description = checks.map { |check|
   }
 }.sort_by { |pattern| pattern[:patternId] }
 
-File.open("src/main/resources/docs/description/description.json", "w") do |f|
+File.open("docs/description/description.json", "w") do |f|
   f.puts JSON.pretty_generate(description)
 end
 
