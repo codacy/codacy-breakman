@@ -42,10 +42,10 @@ object Brakeman extends Tool {
           configuration.forall(_.exists {
             _.patternId == res.patternId
           }) &&
-            files.forall(_.exists(_.toString.endsWith(res.file.path)))
+            files.forall(_.exists(_.toString.endsWith(res.filename.path)))
 
         case res: Result.FileError =>
-          files.forall(_.exists(_.toString.endsWith(res.file.path)))
+          files.forall(_.exists(_.toString.endsWith(res.filename.path)))
 
         case _ => true
       }
@@ -226,8 +226,12 @@ object Brakeman extends Tool {
   }
 
   private def parseToolResult(resultFromTool: List[String], path: Source.Directory): Try[List[Result]] = {
-
-    val jsonParsed: Try[JsValue] = Try(Json.parse(resultFromTool.mkString))
+    val jsonString = resultFromTool.mkString
+    val jsonParsed: Try[JsValue] = if (jsonString.isEmpty) {
+      Success(Json.obj())
+    } else {
+      Try(Json.parse(jsonString))
+    }
 
     jsonParsed match {
       case Success(jsonResult) =>
