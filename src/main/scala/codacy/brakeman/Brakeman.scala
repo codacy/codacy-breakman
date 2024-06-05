@@ -227,7 +227,6 @@ object Brakeman extends Tool {
 
   private def parseToolResult(resultFromTool: List[String], path: Source.Directory): Try[List[Result]] = {
     val jsonString = resultFromTool.mkString
-    println(jsonString)
     val jsonParsed: Try[JsValue] = Try(Json.parse(jsonString))
 
     jsonParsed match {
