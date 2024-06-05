@@ -42,10 +42,10 @@ object Brakeman extends Tool {
           configuration.forall(_.exists {
             _.patternId == res.patternId
           }) &&
-            files.forall(_.exists(_.toString.endsWith(res.filename.path)))
+            files.forall(_.exists(_.toString.endsWith(res.file.path)))
 
         case res: Result.FileError =>
-          files.forall(_.exists(_.toString.endsWith(res.filename.path)))
+          files.forall(_.exists(_.toString.endsWith(res.file.path)))
 
         case _ => true
       }
